@@ -10,4 +10,21 @@ public class ApiApplication {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
+	/* TODO:
+	* 	Pessoa:
+	* 		-nome
+	* 		-cpf
+	* 		-rg
+	* 		-email
+	*		-idade
+	*		-telefone
+	*
+	* 	Login:
+	* 		-nome
+	* 		-email
+	* 		-telefone
+	* 		-senha
+	*
+	*
+	* */
 }
