@@ -5,7 +5,7 @@ import lombok.*;
 
 
 
-@Table(name= "pessoa")
+@Table(name= "pessoas")
 @Entity(name = "Pessoa")
 @Getter
 @NoArgsConstructor

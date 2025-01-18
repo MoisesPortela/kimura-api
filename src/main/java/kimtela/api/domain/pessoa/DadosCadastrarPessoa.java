@@ -1,14 +1,19 @@
 package kimtela.api.domain.pessoa;
 
-public record DadosCadastrarPessoa(String nome, String cpf, String rg, String email, Integer idade, String telefone) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-    /*
-    * Pessoa:
-     * 		-nome
-     * 		-cpf
-     * 		-rg
-     * 		-email
-     *		-idade
-     *		-telefone
-    * */
+public record DadosCadastrarPessoa(
+        @NotBlank
+        String nome,
+        @NotBlank
+        String cpf,
+        @NotBlank
+        String rg,
+        @Email
+        String email,
+        Integer idade,
+        @NotBlank
+        String telefone) {
+
 }
