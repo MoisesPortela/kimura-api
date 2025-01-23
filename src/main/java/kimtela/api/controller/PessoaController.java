@@ -23,7 +23,6 @@ public class PessoaController {
     @ReadOnlyProperty
     public ResponseEntity<Page<DadosListagemPessoa>> listar(@PageableDefault(size = 10, sort = "nome") Pageable pageable){
         var page = pessoaRepository.findAllByAtivoTrue(pageable).map(DadosListagemPessoa::new);
-
         return ResponseEntity.ok(page);
     }
 
