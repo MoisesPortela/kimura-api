@@ -32,6 +32,7 @@ public class SecurityConfigurations {
                     // para indicar qual Role tem poder, vem o metodo, dps o path, dps a Role
                     //req.requestMatchers(HttpMethod.DELETE,"/medicos").hasRole("ADMIN");
                     req.anyRequest().authenticated();
+                    //determina a ordem do filtro (filtro antes, filtro dps)
                 }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
