@@ -2,7 +2,9 @@ package kimtela.api.controller;
 
 import jakarta.validation.Valid;
 import kimtela.api.domain.usuario.DadosAutenticacao;
+import kimtela.api.domain.usuario.DadosCriarUser;
 import kimtela.api.domain.usuario.Usuario;
+import kimtela.api.domain.usuario.UsuarioRepository;
 import kimtela.api.infra.security.DadosTokenJwt;
 import kimtela.api.infra.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,12 @@ public class AutenticacaoController {
 
     @PostMapping
     public ResponseEntity efetuarLogin (@RequestBody @Valid DadosAutenticacao dadosAutenticacao){
-        var token = new UsernamePasswordAuthenticationToken(dadosAutenticacao.login(),dadosAutenticacao.senha());
+        var token = new UsernamePasswordAuthenticationToken(dadosAutenticacao.email(),dadosAutenticacao.senha());
         var authenticate =authenticationManager.authenticate(token);
         var tokenJWT = tokenService.gerarToken((Usuario) authenticate.getPrincipal());
         return ResponseEntity.ok(new DadosTokenJwt(tokenJWT));
     }
+
+
+
 }

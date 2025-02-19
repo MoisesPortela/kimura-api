@@ -8,6 +8,7 @@ import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -56,8 +57,12 @@ public class PessoaController {
     @Transactional
     public ResponseEntity deletar(@PathVariable @Valid Long id){
         var pessoa = pessoaRepository.getReferenceById(id);
+        if (!pessoa.getAtivo()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
         pessoa.excluir();
-        return ResponseEntity.noContent().build();
+        var excluido = new DadosDetalhadosPessoa(pessoa);
+        return ResponseEntity.ok(excluido);
     }
 
 }

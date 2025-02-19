@@ -22,9 +22,8 @@ public class TokenService {
             var algoritmo = Algorithm.HMAC256(segredo);
             return JWT.create()
                     .withIssuer("Kimura API")
-                    .withSubject(user.getLogin())
+                    .withSubject(user.getEmail())
                     .withClaim("id: ",user.getId())
-                    .withClaim("nome: ",user.getLogin())
                     .withClaim("email: ", user.getEmail())
                     .withClaim("telefone: ",user.getTelefone())
                     .withExpiresAt(dataExpiracao())

@@ -1,7 +1,6 @@
 package kimtela.api.domain.pessoa;
 
 import jakarta.persistence.*;
-import kimtela.api.controller.DadosAtualizarPessoa;
 import lombok.*;
 
 

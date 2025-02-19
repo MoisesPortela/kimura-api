@@ -22,18 +22,17 @@ public class SecurityConfigurations {
     private SecurityFilter securityFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    //permitindo o metodo e endpoint
-                    req.requestMatchers(HttpMethod.POST,"/login").permitAll();
-                    req.requestMatchers("/v3/api-docs/**","/swagger-ui.html","/swagger-ui/**").permitAll();
-                    // para indicar qual Role tem poder, vem o metodo, dps o path, dps a Role
-                    //req.requestMatchers(HttpMethod.DELETE,"/medicos").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/usuario").permitAll();
+                    req.requestMatchers(HttpMethod.GET,"/usuario").hasRole("ADM");
+                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated();
-                    //determina a ordem do filtro (filtro antes, filtro dps)
-                }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                })
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
     @Bean
