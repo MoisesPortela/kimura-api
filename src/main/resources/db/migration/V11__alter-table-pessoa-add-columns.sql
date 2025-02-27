@@ -1,0 +1,15 @@
+ALTER TABLE pessoas
+ADD COLUMN foto_id BIGINT,
+ADD COLUMN org_exped VARCHAR(100),
+ADD COLUMN data_nascimento DATE,
+ADD COLUMN formacao_academica VARCHAR(100),
+ADD COLUMN idiomas VARCHAR(30),
+ADD COLUMN cargo_atual VARCHAR(20),
+ADD COLUMN incluir_disclaimer_lgpd TINYINT(1),
+ADD COLUMN indicacao VARCHAR(20),
+ADD COLUMN nvl_cargo VARCHAR(20),
+ADD COLUMN especialidades VARCHAR(30),
+ADD COLUMN anotacoes VARCHAR(236),
+ADD COLUMN docs_id BIGINT,
+ADD CONSTRAINT fk_foto FOREIGN KEY (foto_id) REFERENCES foto(id),
+ADD CONSTRAINT fk_docs FOREIGN KEY (docs_id) REFERENCES docs(id);
