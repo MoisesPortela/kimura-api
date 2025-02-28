@@ -29,7 +29,7 @@ public class SecurityConfigurations {
                     //req.requestMatchers( "**").permitAll();
                     req.requestMatchers( "/login").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/usuario").permitAll();
-                    req.requestMatchers(HttpMethod.GET,"/usuario").hasRole("ROLE_ADM");
+                    req.requestMatchers(HttpMethod.GET,"/usuario").hasRole("ADM");
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.anyRequest().authenticated();
                 })
