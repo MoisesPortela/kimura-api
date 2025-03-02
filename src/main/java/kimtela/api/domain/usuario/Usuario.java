@@ -5,7 +5,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import kimtela.api.domain.adm.Adm;
+import kimtela.api.domain.empresa.Empresa;
 import kimtela.api.domain.pessoa.DadosAtualizarPessoa;
+import kimtela.api.domain.pessoa.Pessoa;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name= "usuarios")
+@Table(name= "usuario")
 @Entity(name = "Usuario")
 @Getter
 @NoArgsConstructor
@@ -26,23 +29,34 @@ public class Usuario implements UserDetails {
     private String email;
     @Setter
     private String senha;
-    private String telefone;
     @Enumerated(EnumType.STRING)
     private TipoPerfil tipoPerfil;
     private Boolean ativo = true;
+    @OneToOne
+    @JoinColumn(name = "pessoa_id", unique = true, nullable = true)
+    private Pessoa pessoa;
+
+    @OneToOne
+    @JoinColumn(name = "empresa_id", unique = true, nullable = true)
+    private Empresa empresa;
+
+    @OneToOne
+    @JoinColumn(name = "adm_id", unique = true, nullable = true)
+    private Adm adm;
 
     public Usuario(@Valid DadosCriarUser dadosCriarUser) {
         this.email = dadosCriarUser.email();
         this.senha = dadosCriarUser.senha();
-        this.telefone = dadosCriarUser.telefone();
         this.tipoPerfil = dadosCriarUser.tipoPerfil();
         this.ativo=true;
+        this.pessoa= dadosCriarUser.pessoa();
+        this.adm= dadosCriarUser.adm();
+        this.empresa= dadosCriarUser.empresa();
     }
 
-    public Usuario(@NotBlank @Email String email, String senhaCodificada, @NotBlank String telefone, @NotNull TipoPerfil tipoPerfil) {
+    public Usuario(@NotBlank @Email String email, String senhaCodificada, @NotBlank String telefone, @NotNull TipoPerfil tipoPerfil ) {
         this.email = email;
         this.senha = senhaCodificada;
-        this.telefone = telefone;
         this.tipoPerfil = tipoPerfil;
         this.ativo=true;
     }
@@ -72,9 +86,6 @@ public class Usuario implements UserDetails {
         }
         if (dadosAtualizarUser.tipoPerfil()!=null){
             this.tipoPerfil= dadosAtualizarUser.tipoPerfil();
-        }
-        if (dadosAtualizarUser.telefone()!=null){
-            this.telefone= dadosAtualizarUser.telefone();
         }
 
     }

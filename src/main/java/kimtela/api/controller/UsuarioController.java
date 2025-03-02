@@ -2,9 +2,6 @@ package kimtela.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import kimtela.api.domain.pessoa.DadosAtualizarPessoa;
-import kimtela.api.domain.pessoa.DadosDetalhadosPessoa;
-import kimtela.api.domain.pessoa.DadosListagemPessoa;
 import kimtela.api.domain.usuario.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.ReadOnlyProperty;

@@ -9,6 +9,5 @@ public record DadosAtualizarUser(
         @Email
         String email,
         String senha,
-        String telefone,
         TipoPerfil tipoPerfil) {
 }

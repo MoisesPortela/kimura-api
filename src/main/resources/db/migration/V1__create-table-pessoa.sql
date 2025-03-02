@@ -1,12 +1,19 @@
-create table pessoas(
-    id bigint not null auto_increment,
-    nome varchar(100) not null,
-    cpf varchar(100) not null unique,
-    rg varchar(100)  not null unique,
-    email varchar(100) not null unique,
-    idade varchar(100),
-    telefone varchar(100) not null unique,
-
-    primary key (id)
-
+CREATE TABLE pessoa (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(100) NOT NULL UNIQUE,
+    rg VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(100) NOT NULL UNIQUE,
+    idade VARCHAR(100),
+    ativo TINYINT,
+    org_exped VARCHAR(100),
+    data_nascimento DATE,
+    formacao_academica VARCHAR(100),
+    idiomas VARCHAR(30),
+    cargo_atual VARCHAR(20),
+    incluir_disclaimer_lgpd TINYINT(1),
+    indicacao VARCHAR(20),
+    nvl_cargo VARCHAR(20),
+    especialidades VARCHAR(30),
+    anotacoes VARCHAR(236)
 );

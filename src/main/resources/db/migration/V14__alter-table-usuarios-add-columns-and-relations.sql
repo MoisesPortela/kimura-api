@@ -1,7 +1,0 @@
-ALTER TABLE usuarios 
-ADD COLUMN pessoa_id BIGINT NULL,
-ADD COLUMN empresa_id BIGINT NULL,
-ADD COLUMN adm_id BIGINT NULL,
-ADD CONSTRAINT fk_usuario_pessoa FOREIGN KEY (pessoa_id) REFERENCES pessoas(id) ON DELETE CASCADE,
-ADD CONSTRAINT fk_usuario_empresa FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE,
-ADD CONSTRAINT fk_usuario_adm FOREIGN KEY (adm_id) REFERENCES adms(id) ON DELETE CASCADE;

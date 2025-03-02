@@ -118,3 +118,8 @@ Para mais informações ou relatório de problemas, entre em contato com o time 
 - **Email**: msportela2@hotmail.com
 - **WhatsApp**: [Clique aqui para entrar em contato](https://api.whatsapp.com/send/?phone=61986210645&text=Tenho+perguntas+sobre+a+API+kimura&type=phone_number&app_absent=0)
 
+@TODO:
+- implementar endereço
+- implementar foto
+- implementar doc
+- implementar exéirencia profissional

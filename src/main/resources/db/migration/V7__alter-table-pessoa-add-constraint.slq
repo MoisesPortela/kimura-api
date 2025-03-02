@@ -1,0 +1,5 @@
+alter table pessoa
+    ADD COLUMN foto_id BIGINT UNIQUE,
+    ADD CONSTRAINT fk_foto FOREIGN KEY (foto_id) REFERENCES foto(id),
+    ADD COLUMN doc_id BIGINT,
+    ADD CONSTRAINT fk_docs FOREIGN KEY (doc_id) REFERENCES doc(id);
