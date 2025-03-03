@@ -17,4 +17,30 @@ public class ExperienciaProfissional {
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private String atividades;
+
+    public ExperienciaProfissional(DadosExpProf dados) {
+        this.dataInicio = dados.dataInicio();
+        this.cargo = dados.cargo();
+        this.nomeEmpresa = dados.nomeEmpresa();
+        this.dataFim = dados.dataFim();
+        this.atividades = dados.atividades();
+    }
+    public void atualizarExperiencia(DadosExpProf dados){
+        if(this.nomeEmpresa!=null){
+            this.nomeEmpresa= dados.nomeEmpresa();
+        }
+        if(this.cargo!=null){
+            this.cargo= dados.cargo();
+        }
+        if(this.dataInicio!=null){
+            this.dataInicio= dados.dataInicio();
+        }
+        if(this.dataFim!=null){
+            this.dataFim= dados.dataFim();
+        }
+        if(this.atividades!=null){
+            this.atividades= dados.atividades();
+        }
+    }
+
 }

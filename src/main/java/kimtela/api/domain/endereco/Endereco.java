@@ -20,6 +20,12 @@ public class Endereco {
 
     public Endereco(DadosEndereco dadosEndereco){
         this.tipoEndereco = dadosEndereco.tipoEndereco();
+        this.cep = dadosEndereco.cep();
+        this.logradouro = dadosEndereco.logradouro();
+        this.complemento = dadosEndereco.complemento();
+        this.bairro = dadosEndereco.bairro();
+        this.localidade = dadosEndereco.localidade();
+        this.uf=dadosEndereco.uf();
     }
     public void atualizarInformacoes(DadosEndereco dados) {
         if (dados.logradouro() != null) {
@@ -28,12 +34,14 @@ public class Endereco {
         if (dados.bairro() != null) {
             this.bairro = dados.bairro();
         }
+        if (dados.localidade()!=null){
+            this.localidade=dados.localidade();
+        }
         if (dados.cep() != null) {
             this.cep = dados.cep();
         }
         if (dados.uf() != null) {
             this.uf = dados.uf();
-        }
         }
         if (dados.complemento() != null) {
             this.complemento = dados.complemento();

@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este projeto é uma API REST desenvolvida para o sistema Kimura. A API fornece funcionalidades de CRUD para gerenciar pessoas e funcionalidades de autenticação para o sistema, como cadastro, atualização, detalhamento e exclusão de registros, bem como login.
+Este projeto é uma API REST desenvolvida para o sistema Kimura. A API fornece funcionalidades de CRUD para gerir pessoas e funcionalidades de autenticação para o sistema, como cadastro, atualização, detalhamento e exclusão de registros, bem como "login".
 
 ### Tecnologias Utilizadas
 
@@ -113,13 +113,13 @@ Este projeto está licenciado sob a [Licença Apache 2.0](http://voll.med/api/li
 
 ## Contato
 
-Para mais informações ou relatório de problemas, entre em contato com o time Backend:
+Para mais informações ou relatório de problemas, entre em contato com a equipe de Backend:
 
 - **Email**: msportela2@hotmail.com
 - **WhatsApp**: [Clique aqui para entrar em contato](https://api.whatsapp.com/send/?phone=61986210645&text=Tenho+perguntas+sobre+a+API+kimura&type=phone_number&app_absent=0)
 
 @TODO:
-- implementar endereço
+- implementar endereço controller
 - implementar foto
 - implementar doc
-- implementar exéirencia profissional
+- implementar experiência profissional controller
