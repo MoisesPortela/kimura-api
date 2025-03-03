@@ -119,7 +119,6 @@ Para mais informações ou relatório de problemas, entre em contato com a equip
 - **WhatsApp**: [Clique aqui para entrar em contato](https://api.whatsapp.com/send/?phone=61986210645&text=Tenho+perguntas+sobre+a+API+kimura&type=phone_number&app_absent=0)
 
 @TODO:
-- implementar endereço controller
 - implementar foto
 - implementar doc
-- implementar experiência profissional controller
+- implementar experiência profissional DTO e inserir em pessoa
