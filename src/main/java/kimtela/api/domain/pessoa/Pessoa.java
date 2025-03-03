@@ -43,8 +43,7 @@ public class Pessoa {
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Foto foto;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="endereco_id",referencedColumnName = "id")
+    @Embedded
     private Endereco endereco;
 
     @ElementCollection
