@@ -27,7 +27,7 @@ public class Endereco {
         this.localidade = dadosEndereco.localidade();
         this.uf=dadosEndereco.uf();
     }
-    public void atualizarInformacoes(DadosEndereco dados) {
+    public void atualizarEndereco(DadosEndereco dados) {
         if (dados.logradouro() != null) {
             this.logradouro = dados.logradouro();
         }

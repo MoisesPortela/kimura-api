@@ -43,9 +43,9 @@ public class Pessoa {
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Foto foto;
 
-    @ElementCollection
-    @CollectionTable(name = "endereco", joinColumns = @JoinColumn(name = "pessoa_id"))
-    private List<Endereco> enderecos = new ArrayList<Endereco>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="endereco_id",referencedColumnName = "id")
+    private Endereco endereco;
 
     @ElementCollection
     @CollectionTable(name = "exp_prof", joinColumns = @JoinColumn(name = "pessoa_id"))
@@ -62,6 +62,7 @@ public class Pessoa {
         this.idade = dadosPessoa.idade();
         this.telefone = dadosPessoa.telefone();
         this.ativo = true;
+        this.endereco= new Endereco(dadosPessoa.endereco());
     }
 
     public void atualizarPessoa(DadosAtualizarPessoa dadosAtualizarPessoa){
@@ -76,6 +77,9 @@ public class Pessoa {
         }
         if (dadosAtualizarPessoa.telefone()!=null){
             this.telefone= dadosAtualizarPessoa.telefone();
+        }
+        if(dadosAtualizarPessoa.endereco()!=null){
+            this.endereco.atualizarEndereco(dadosAtualizarPessoa.endereco());
         }
 
     }
