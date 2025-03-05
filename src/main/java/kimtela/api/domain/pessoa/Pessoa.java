@@ -25,7 +25,6 @@ public class Pessoa {
     private String nome;
     private String cpf;
     private String rg;
-    private String email;
     private Integer idade;
     private String telefone;
     private Boolean ativo;
@@ -48,7 +47,7 @@ public class Pessoa {
 
     @ElementCollection
     @CollectionTable(name = "exp_prof", joinColumns = @JoinColumn(name = "pessoa_id"))
-    private List<ExperienciaProfissional> experiencias = new ArrayList<ExperienciaProfissional>();
+    private List<ExperienciaProfissional> experiencias = new ArrayList<>();
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Documentos> documentos = new ArrayList<Documentos>();
@@ -57,7 +56,6 @@ public class Pessoa {
         this.nome= dadosPessoa.nome();
         this.cpf = dadosPessoa.cpf();
         this.rg = dadosPessoa.rg();
-        this.email = dadosPessoa.email();
         this.idade = dadosPessoa.idade();
         this.telefone = dadosPessoa.telefone();
         this.ativo = true;
@@ -67,9 +65,6 @@ public class Pessoa {
     public void atualizarPessoa(DadosAtualizarPessoa dadosAtualizarPessoa){
         if (dadosAtualizarPessoa.nome()!=null){
             this.nome= dadosAtualizarPessoa.nome();
-        }
-        if (dadosAtualizarPessoa.email()!=null){
-            this.email= dadosAtualizarPessoa.email();
         }
         if (dadosAtualizarPessoa.idade()!=null){
             this.idade=dadosAtualizarPessoa.idade();

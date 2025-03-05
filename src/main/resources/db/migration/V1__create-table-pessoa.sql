@@ -10,7 +10,7 @@ CREATE TABLE pessoa (
     data_nascimento DATE,
     formacao_academica VARCHAR(100),
     idiomas VARCHAR(30),
-    cargo_atual VARCHAR(20),
+    cargo_atual VARCHAR(50),
     incluir_disclaimer_lgpd TINYINT(1),
     indicacao VARCHAR(20),
     nvl_cargo VARCHAR(20),
