@@ -1,8 +1,6 @@
 package kimtela.api.domain.endereco;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +10,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
 public class Endereco {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
     private TipoEndereco tipoEndereco;
     private String cep;
     private String logradouro;
@@ -32,6 +33,9 @@ public class Endereco {
         this.uf=dadosEndereco.uf();
     }
     public void atualizarEndereco(DadosEndereco dados) {
+        if(dados.tipoEndereco()!=null){
+            this.tipoEndereco=dados.tipoEndereco();
+        }
         if (dados.logradouro() != null) {
             this.logradouro = dados.logradouro();
         }

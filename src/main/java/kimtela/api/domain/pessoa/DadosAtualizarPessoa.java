@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import kimtela.api.domain.documentos.Documentos;
 import kimtela.api.domain.endereco.DadosEndereco;
 import kimtela.api.domain.experiencia.DadosExpProf;
+import kimtela.api.domain.foto.DadosFoto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +31,7 @@ public record DadosAtualizarPessoa(
         String anotacoes,
         DadosEndereco endereco,
         List<DadosExpProf> experiencias,
-        List<Documentos> docs
+        List<Documentos> docs,
+        DadosFoto foto
 ) {
 }

@@ -26,5 +26,26 @@ public class Foto {
     @OneToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+    public Foto(DadosFoto dadosFoto) {
+        this.nome = dadosFoto.nome();
+        this.legenda = dadosFoto.legenda();
+        this.data = dadosFoto.data();
+        this.caminhoArquivo=dadosFoto.caminho();
+    }
+
+    public void atualizarFoto(DadosFoto dadosFoto) {
+        if (dadosFoto.nome() != null) {
+            this.nome = dadosFoto.nome();
+        }
+        if (dadosFoto.legenda() != null) {
+            this.legenda = dadosFoto.legenda();
+        }
+        if (dadosFoto.data() != null) {
+            this.data = dadosFoto.data();
+        }
+        if (dadosFoto.caminho() != null) {
+            this.caminhoArquivo = dadosFoto.caminho();
+        }
+    }
 }
 

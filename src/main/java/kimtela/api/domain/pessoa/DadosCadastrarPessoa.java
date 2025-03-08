@@ -33,7 +33,7 @@ public record DadosCadastrarPessoa(
         String anotacoes,
         @NotBlank
         @Valid
-        DadosEndereco endereco,
+        List<DadosEndereco> endereco,
         List<DadosExpProf> experiencias,
         List<Documentos> docs
         ) {

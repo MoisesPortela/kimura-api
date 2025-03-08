@@ -2,6 +2,7 @@ package kimtela.api.domain.pessoa;
 
 import jakarta.persistence.*;
 import kimtela.api.domain.documentos.Documentos;
+import kimtela.api.domain.endereco.DadosEndereco;
 import kimtela.api.domain.endereco.Endereco;
 import kimtela.api.domain.experiencia.ExperienciaProfissional;
 import kimtela.api.domain.foto.Foto;
@@ -50,7 +51,7 @@ public class Pessoa {
     private List<ExperienciaProfissional> experiencias = new ArrayList<>();
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Documentos> documentos = new ArrayList<Documentos>();
+    private List<Documentos> documentos = new ArrayList<>();
 
     public Pessoa(DadosCadastrarPessoa dadosPessoa) {
         this.nome= dadosPessoa.nome();
@@ -59,7 +60,19 @@ public class Pessoa {
         this.idade = dadosPessoa.idade();
         this.telefone = dadosPessoa.telefone();
         this.ativo = true;
-        this.enderecos.add(new Endereco(dadosPessoa.endereco()));
+        this.orgExped= dadosPessoa.orgExped();
+        this.dataNascimento=dadosPessoa.dataNascimento();
+        this.formacaoAcademica=dadosPessoa.formacaoAcademica();
+        this.idiomas=dadosPessoa.idiomas();
+        this.cargoAtual=dadosPessoa.cargoAtual();
+        this.incluirDisclaimerLgpd=false;
+        this.indicacao=dadosPessoa.indicacao();
+        this.nvlCargo=dadosPessoa.nvlCargo();
+        this.especialidades=dadosPessoa.especialidades();
+        this.anotacoes=dadosPessoa.anotacoes();
+        for (DadosEndereco dadosEndereco : dadosPessoa.endereco()) {
+            this.enderecos.add(new Endereco(dadosEndereco));
+        }
     }
 
     public void atualizarPessoa(DadosAtualizarPessoa dadosAtualizarPessoa){
@@ -73,7 +86,12 @@ public class Pessoa {
             this.telefone= dadosAtualizarPessoa.telefone();
         }
         if(dadosAtualizarPessoa.endereco()!=null){
-            this.enderecos.get(0).atualizarEndereco(dadosAtualizarPessoa.endereco());
+            for (Endereco endereco:this.enderecos) {
+                endereco.atualizarEndereco(dadosAtualizarPessoa.endereco());
+            }
+        }
+        if(dadosAtualizarPessoa.foto()!=null){
+            this.foto.atualizarFoto(dadosAtualizarPessoa.foto());
         }
 
     }
