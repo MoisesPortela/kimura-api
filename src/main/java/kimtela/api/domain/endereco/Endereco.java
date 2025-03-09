@@ -5,6 +5,7 @@ import kimtela.api.domain.pessoa.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name= "endereco")
 @Entity(name = "Endereco")
@@ -23,6 +24,7 @@ public class Endereco {
     private String localidade;
     private String uf;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
@@ -59,4 +61,5 @@ public class Endereco {
             this.complemento = dados.complemento();
         }
     }
+
 }

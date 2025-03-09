@@ -18,7 +18,7 @@ public record DadosDetalhadosPessoa(
         this(pessoa.getId(), pessoa.getNome(),
                 pessoa.getCpf(), pessoa.getRg(), pessoa.getIdade(), pessoa.getTelefone(), pessoa.getOrgExped(), pessoa.getDataNascimento(),
                 pessoa.getFormacaoAcademica(),pessoa.getIdiomas(),pessoa.getCargoAtual(),pessoa.getIndicacao(),
-                pessoa.getNvlCargo(),pessoa.getEspecialidades(),pessoa.getAnotacoes(), pessoa.getEnderecos(),
+                pessoa.getNvlCargo(),pessoa.getEspecialidades(),pessoa.getAnotacoes(), pessoa.getEndereco(),
                 pessoa.getExperiencias(), pessoa.getDocumentos());
     }
 

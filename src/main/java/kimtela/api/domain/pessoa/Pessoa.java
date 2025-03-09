@@ -45,7 +45,7 @@ public class Pessoa {
     private Foto foto;
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Endereco> enderecos = new ArrayList<>();
+    private List<Endereco> endereco = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "exp_prof", joinColumns = @JoinColumn(name = "pessoa_id"))
@@ -72,10 +72,16 @@ public class Pessoa {
         this.especialidades=dadosPessoa.especialidades();
         this.anotacoes=dadosPessoa.anotacoes();
         for (DadosEndereco dadosEndereco : dadosPessoa.endereco()) {
-            this.enderecos.add(new Endereco(dadosEndereco));
+            Endereco endereco = new Endereco(dadosEndereco);
+            endereco.setPessoa(this);
+            this.endereco.add(endereco);
+
         }
         if(dadosPessoa.foto()!=null) {
-            this.foto = new Foto(dadosPessoa.foto());
+            Foto foto = new Foto(dadosPessoa.foto());
+            foto.setPessoa(this);
+
+            this.foto = foto;
         }
     }
 
@@ -90,7 +96,7 @@ public class Pessoa {
             this.telefone= dadosAtualizarPessoa.telefone();
         }
         if(dadosAtualizarPessoa.endereco()!=null){
-            for (Endereco endereco:this.enderecos) {
+            for (Endereco endereco:this.endereco) {
                 endereco.atualizarEndereco(dadosAtualizarPessoa.endereco());
             }
         }
