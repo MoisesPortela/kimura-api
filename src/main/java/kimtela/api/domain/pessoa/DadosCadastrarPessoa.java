@@ -8,6 +8,7 @@ import kimtela.api.domain.endereco.DadosEndereco;
 import kimtela.api.domain.endereco.Endereco;
 import kimtela.api.domain.experiencia.DadosExpProf;
 import kimtela.api.domain.experiencia.ExperienciaProfissional;
+import kimtela.api.domain.foto.DadosFoto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,7 +36,8 @@ public record DadosCadastrarPessoa(
         @Valid
         List<DadosEndereco> endereco,
         List<DadosExpProf> experiencias,
-        List<Documentos> docs
+        List<Documentos> docs,
+        DadosFoto foto
         ) {
 
 }

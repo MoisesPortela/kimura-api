@@ -40,7 +40,6 @@ public class PessoaController {
         var pessoa = new Pessoa(dadosPessoa);
         pessoaRepository.save(pessoa);
         var uri= uriComponentsBuilder.path("/pessoas/{id}").buildAndExpand(pessoa.getId()).toUri();
-
         return ResponseEntity.created(uri).body(new DadosDetalhadosPessoa(pessoa));
     }
 
@@ -49,7 +48,6 @@ public class PessoaController {
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarPessoa dadosAtualizarPessoa){
         var pessoa = pessoaRepository.getReferenceById(dadosAtualizarPessoa.id());
         pessoa.atualizarPessoa(dadosAtualizarPessoa);
-
         return ResponseEntity.ok(new DadosDetalhadosPessoa(pessoa));
     }
 

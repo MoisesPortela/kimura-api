@@ -5,6 +5,7 @@ import kimtela.api.domain.documentos.Documentos;
 import kimtela.api.domain.endereco.DadosEndereco;
 import kimtela.api.domain.endereco.Endereco;
 import kimtela.api.domain.experiencia.ExperienciaProfissional;
+import kimtela.api.domain.foto.DadosFoto;
 import kimtela.api.domain.foto.Foto;
 import lombok.*;
 
@@ -72,6 +73,9 @@ public class Pessoa {
         this.anotacoes=dadosPessoa.anotacoes();
         for (DadosEndereco dadosEndereco : dadosPessoa.endereco()) {
             this.enderecos.add(new Endereco(dadosEndereco));
+        }
+        if(dadosPessoa.foto()!=null) {
+            this.foto = new Foto(dadosPessoa.foto());
         }
     }
 

@@ -1,6 +1,7 @@
 package kimtela.api.domain.endereco;
 
 import jakarta.persistence.*;
+import kimtela.api.domain.pessoa.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,7 @@ import lombok.NoArgsConstructor;
 public class Endereco {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "pessoa_id")
+    @Enumerated(EnumType.STRING)
     private TipoEndereco tipoEndereco;
     private String cep;
     private String logradouro;
@@ -22,6 +22,10 @@ public class Endereco {
     private String bairro;
     private String localidade;
     private String uf;
+
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
 
     public Endereco(DadosEndereco dadosEndereco){
         this.tipoEndereco = dadosEndereco.tipoEndereco();
