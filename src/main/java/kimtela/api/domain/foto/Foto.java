@@ -1,5 +1,6 @@
 package kimtela.api.domain.foto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import kimtela.api.domain.pessoa.Pessoa;
@@ -29,6 +30,7 @@ public class Foto {
     @Setter
     @OneToOne
     @JoinColumn(name = "pessoa_id")
+    @JsonIgnore
     private Pessoa pessoa;
     public Foto(DadosFoto dadosFoto) {
         this.nome = dadosFoto.nome();

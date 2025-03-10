@@ -1,11 +1,12 @@
 package kimtela.api.domain.pessoa;
 
 import jakarta.persistence.*;
+import kimtela.api.domain.documentos.DadosDocumento;
 import kimtela.api.domain.documentos.Documentos;
 import kimtela.api.domain.endereco.DadosEndereco;
 import kimtela.api.domain.endereco.Endereco;
+import kimtela.api.domain.experiencia.DadosExpProf;
 import kimtela.api.domain.experiencia.ExperienciaProfissional;
-import kimtela.api.domain.foto.DadosFoto;
 import kimtela.api.domain.foto.Foto;
 import lombok.*;
 
@@ -47,40 +48,58 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> endereco = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "exp_prof", joinColumns = @JoinColumn(name = "pessoa_id"))
+    @OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExperienciaProfissional> experiencias = new ArrayList<>();
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Documentos> documentos = new ArrayList<>();
 
     public Pessoa(DadosCadastrarPessoa dadosPessoa) {
-        this.nome= dadosPessoa.nome();
+        this.nome = dadosPessoa.nome();
         this.cpf = dadosPessoa.cpf();
         this.rg = dadosPessoa.rg();
         this.idade = dadosPessoa.idade();
         this.telefone = dadosPessoa.telefone();
         this.ativo = true;
-        this.orgExped= dadosPessoa.orgExped();
-        this.dataNascimento=dadosPessoa.dataNascimento();
-        this.formacaoAcademica=dadosPessoa.formacaoAcademica();
-        this.idiomas=dadosPessoa.idiomas();
-        this.cargoAtual=dadosPessoa.cargoAtual();
-        this.incluirDisclaimerLgpd=false;
-        this.indicacao=dadosPessoa.indicacao();
-        this.nvlCargo=dadosPessoa.nvlCargo();
-        this.especialidades=dadosPessoa.especialidades();
-        this.anotacoes=dadosPessoa.anotacoes();
-        for (DadosEndereco dadosEndereco : dadosPessoa.endereco()) {
-            Endereco endereco = new Endereco(dadosEndereco);
-            endereco.setPessoa(this);
-            this.endereco.add(endereco);
+        this.orgExped = dadosPessoa.orgExped();
+        this.dataNascimento = dadosPessoa.dataNascimento();
+        this.formacaoAcademica = dadosPessoa.formacaoAcademica();
+        this.idiomas = dadosPessoa.idiomas();
+        this.cargoAtual = dadosPessoa.cargoAtual();
+        this.incluirDisclaimerLgpd = false;
+        this.indicacao = dadosPessoa.indicacao();
+        this.nvlCargo = dadosPessoa.nvlCargo();
+        this.especialidades = dadosPessoa.especialidades();
+        this.anotacoes = dadosPessoa.anotacoes();
 
+        if (dadosPessoa.endereco() != null) {
+            for (DadosEndereco dadosEndereco : dadosPessoa.endereco()) {
+                Endereco endereco = new Endereco(dadosEndereco);
+                endereco.setPessoa(this);
+                this.endereco.add(endereco);
+            }
         }
-        if(dadosPessoa.foto()!=null) {
+
+        if (dadosPessoa.experiencias() != null) {
+            for (DadosExpProf dadosExpProf : dadosPessoa.experiencias()) {
+                ExperienciaProfissional experiencia = new ExperienciaProfissional(dadosExpProf);
+                experiencia.setPessoa(this);
+                this.experiencias.add(experiencia);
+            }
+        }
+
+        if (dadosPessoa.docs() != null) {
+            System.out.println("teste");
+            for (DadosDocumento dadosDocumento : dadosPessoa.docs()) {
+                Documentos doc = new Documentos(dadosDocumento);
+                doc.setPessoa(this);
+                this.documentos.add(doc);
+            }
+        }
+
+        if (dadosPessoa.foto() != null) {
             Foto foto = new Foto(dadosPessoa.foto());
             foto.setPessoa(this);
-
             this.foto = foto;
         }
     }
@@ -96,8 +115,24 @@ public class Pessoa {
             this.telefone= dadosAtualizarPessoa.telefone();
         }
         if(dadosAtualizarPessoa.endereco()!=null){
-            for (Endereco endereco:this.endereco) {
-                endereco.atualizarEndereco(dadosAtualizarPessoa.endereco());
+            for (int i = 0; i<dadosAtualizarPessoa.endereco().size();i++) {
+                Endereco endereco = this.endereco.get(i);
+                DadosEndereco dadosEndereco = dadosAtualizarPessoa.endereco().get(i);
+                endereco.atualizarEndereco(dadosEndereco);
+            }
+        }
+        if(dadosAtualizarPessoa.experiencias()!=null){
+            for (int i =0;i<this.experiencias.size();i++){
+                ExperienciaProfissional experiencia = this.experiencias.get(i);
+                DadosExpProf dadosExpProf = dadosAtualizarPessoa.experiencias().get(i);
+                experiencia.atualizarExperiencia(dadosExpProf);
+            }
+        }
+        if(dadosAtualizarPessoa.docs()!=null){
+            for (int i =0;i<this.documentos.size();i++){
+                Documentos doc = this.documentos.get(i);
+                DadosDocumento dadosDoc = dadosAtualizarPessoa.docs().get(i);
+                doc.atualizarDocumento(dadosDoc);
             }
         }
         if(dadosAtualizarPessoa.foto()!=null){

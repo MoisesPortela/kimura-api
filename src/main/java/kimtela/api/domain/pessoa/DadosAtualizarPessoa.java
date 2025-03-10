@@ -3,6 +3,7 @@ package kimtela.api.domain.pessoa;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import kimtela.api.domain.documentos.DadosDocumento;
 import kimtela.api.domain.documentos.Documentos;
 import kimtela.api.domain.endereco.DadosEndereco;
 import kimtela.api.domain.experiencia.DadosExpProf;
@@ -29,9 +30,9 @@ public record DadosAtualizarPessoa(
         String nvlCargo,
         String especialidades,
         String anotacoes,
-        DadosEndereco endereco,
+        List<DadosEndereco> endereco,
         List<DadosExpProf> experiencias,
-        List<Documentos> docs,
+        List<DadosDocumento> docs,
         DadosFoto foto
 ) {
 }

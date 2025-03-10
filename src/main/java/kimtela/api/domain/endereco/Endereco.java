@@ -1,5 +1,6 @@
 package kimtela.api.domain.endereco;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import kimtela.api.domain.pessoa.Pessoa;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class Endereco {
     @Setter
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
+    @JsonIgnore
     private Pessoa pessoa;
 
     public Endereco(DadosEndereco dadosEndereco){
