@@ -23,7 +23,10 @@ public class PessoaController {
     @GetMapping
     @ReadOnlyProperty
     public ResponseEntity<Page<DadosListagemPessoa>> listar(@PageableDefault(size = 10, sort = "nome") Pageable pageable){
-        var page = pessoaRepository.findAllByAtivoTrue(pageable).map(DadosListagemPessoa::new);
+        var page = pessoaRepository.findAllByAtivoTrue(pageable)
+                .map(DadosListagemPessoa::new)
+                .map(DadosListagemPessoa::censurarDados);
+        System.out.println(page.getContent());
         return ResponseEntity.ok(page);
     }
 
@@ -31,7 +34,7 @@ public class PessoaController {
     @ReadOnlyProperty
     public ResponseEntity detalhar(@PathVariable Long id){
         var pessoa = pessoaRepository.getReferenceById(id);
-                return ResponseEntity.ok(new DadosDetalhadosPessoa(pessoa));
+                return ResponseEntity.ok(new DadosDetalhadosPessoa(pessoa).censurarDados());
     }
 
     @PostMapping
@@ -40,7 +43,7 @@ public class PessoaController {
         var pessoa = new Pessoa(dadosPessoa);
         pessoaRepository.save(pessoa);
         var uri= uriComponentsBuilder.path("/pessoas/{id}").buildAndExpand(pessoa.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhadosPessoa(pessoa));
+        return ResponseEntity.created(uri).body(new DadosDetalhadosPessoa(pessoa).censurarDados());
     }
 
     @PutMapping
@@ -48,7 +51,7 @@ public class PessoaController {
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarPessoa dadosAtualizarPessoa){
         var pessoa = pessoaRepository.getReferenceById(dadosAtualizarPessoa.id());
         pessoa.atualizarPessoa(dadosAtualizarPessoa);
-        return ResponseEntity.ok(new DadosDetalhadosPessoa(pessoa));
+        return ResponseEntity.ok(new DadosDetalhadosPessoa(pessoa).censurarDados());
     }
 
     @DeleteMapping("/{id}")
@@ -59,7 +62,7 @@ public class PessoaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         pessoa.excluir();
-        var excluido = new DadosDetalhadosPessoa(pessoa);
+        var excluido = new DadosDetalhadosPessoa(pessoa).censurarDados();
         return ResponseEntity.ok(excluido);
     }
 

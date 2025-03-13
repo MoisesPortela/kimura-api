@@ -36,9 +36,18 @@ public class UsuarioController {
     @GetMapping
     @ReadOnlyProperty
     public ResponseEntity<Page<DadosListagemUser>> listar(@PageableDefault(size = 10, sort = "email") Pageable pageable){
-        var page = usuarioRepository.findAllByAtivoTrue(pageable).map(DadosListagemUser::new);
+        var page = usuarioRepository.findAllByAtivoTrue(pageable)
+                .map(DadosListagemUser::new)
+                .map(DadosListagemUser::censurarDados);
         return ResponseEntity.ok(page);
     }
+    @GetMapping("/{id}")
+    @ReadOnlyProperty
+    public ResponseEntity<DadosDetalhadosUser> detalhar(@PathVariable Long id){
+        var user = usuarioRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhadosUser(user).censurarDados());
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarUser dadosAtualizarUser){

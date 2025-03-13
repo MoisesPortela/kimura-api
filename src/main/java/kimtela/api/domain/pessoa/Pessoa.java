@@ -89,7 +89,6 @@ public class Pessoa {
         }
 
         if (dadosPessoa.docs() != null) {
-            System.out.println("teste");
             for (DadosDocumento dadosDocumento : dadosPessoa.docs()) {
                 Documentos doc = new Documentos(dadosDocumento);
                 doc.setPessoa(this);
