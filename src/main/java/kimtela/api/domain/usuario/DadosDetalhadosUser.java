@@ -10,4 +10,12 @@ public record DadosDetalhadosUser(
     public DadosDetalhadosUser(Usuario usuario){
         this(usuario.getEmail(), usuario.getTipoPerfil());
     }
+
+    public DadosDetalhadosUser censurarDados(){
+        String[] censoredEmailParts = this.email.split("@",2);
+        String firstPartEmail = censoredEmailParts[0].replaceAll(".(?=.{3})","*");
+        String secondPartEmail = censoredEmailParts[1].replaceAll(".(?<=.{5})","*");
+        String censoredEmailComplete = firstPartEmail+"@"+secondPartEmail;
+        return new DadosDetalhadosUser(censoredEmailComplete,this.tipoPerfil);
+    };
 }
