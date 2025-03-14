@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import kimtela.api.domain.adm.Adm;
 import kimtela.api.domain.empresa.Empresa;
-import kimtela.api.domain.pessoa.DadosAtualizarPessoa;
 import kimtela.api.domain.pessoa.Pessoa;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +33,7 @@ public class Usuario implements UserDetails {
     private Boolean ativo = true;
     @OneToOne
     @JoinColumn(name = "pessoa_id", unique = true, nullable = true)
+    @Setter
     private Pessoa pessoa;
 
     @OneToOne
@@ -93,5 +93,6 @@ public class Usuario implements UserDetails {
     public void excluir() {
         this.ativo=false;
     }
+
 
 }

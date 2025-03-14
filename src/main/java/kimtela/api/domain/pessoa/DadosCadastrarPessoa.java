@@ -5,11 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import kimtela.api.domain.documentos.DadosDocumento;
-import kimtela.api.domain.documentos.Documentos;
 import kimtela.api.domain.endereco.DadosEndereco;
-import kimtela.api.domain.endereco.Endereco;
 import kimtela.api.domain.experiencia.DadosExpProf;
-import kimtela.api.domain.experiencia.ExperienciaProfissional;
 import kimtela.api.domain.foto.DadosFoto;
 
 import java.time.LocalDate;
@@ -43,7 +40,10 @@ public record DadosCadastrarPessoa(
         @NotEmpty
         @Valid
         List<DadosDocumento> docs,
-        DadosFoto foto
+        DadosFoto foto,
+        @Email
+        @NotBlank
+        String email
         ) {
 
 }

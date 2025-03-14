@@ -3,6 +3,7 @@ package kimtela.api.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import kimtela.api.domain.pessoa.*;
+import kimtela.api.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,9 @@ public class PessoaController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
 
     @GetMapping
     @ReadOnlyProperty
@@ -26,7 +30,6 @@ public class PessoaController {
         var page = pessoaRepository.findAllByAtivoTrue(pageable)
                 .map(DadosListagemPessoa::new)
                 .map(DadosListagemPessoa::censurarDados);
-        System.out.println(page.getContent());
         return ResponseEntity.ok(page);
     }
 
@@ -42,6 +45,11 @@ public class PessoaController {
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastrarPessoa dadosPessoa, UriComponentsBuilder uriComponentsBuilder){
         var pessoa = new Pessoa(dadosPessoa);
         pessoaRepository.save(pessoa);
+        var usuario = usuarioRepository.findByEmail(dadosPessoa.email());
+        if(usuario!=null){
+            usuario.setPessoa(pessoa);
+            usuarioRepository.save(usuario);
+        }
         var uri= uriComponentsBuilder.path("/pessoas/{id}").buildAndExpand(pessoa.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhadosPessoa(pessoa).censurarDados());
     }

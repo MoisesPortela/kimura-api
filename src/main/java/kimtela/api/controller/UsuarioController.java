@@ -29,7 +29,7 @@ public class UsuarioController {
         String senhaCodificada = passwordEncoder.encode(dadosCriarUser.senha());
         var usuario = new Usuario(dadosCriarUser.email(), senhaCodificada, dadosCriarUser.telefone(), dadosCriarUser.tipoPerfil());
         usuarioRepository.save(usuario);
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(new DadosDetalhadosUser(usuario).censurarDados() );
     }
 
 
