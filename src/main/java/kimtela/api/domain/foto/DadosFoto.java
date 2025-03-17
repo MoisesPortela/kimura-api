@@ -8,6 +8,7 @@ public record DadosFoto(
         LocalDate data,
         String caminho,
         String tamanho,
-        String tipo
+        String tipo,
+        byte[] conteudo
 ) {
 }

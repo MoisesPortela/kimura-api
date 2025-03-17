@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import kimtela.api.domain.pessoa.*;
 import kimtela.api.domain.usuario.UsuarioRepository;
+import kimtela.api.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
@@ -22,6 +25,8 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private FileStorageService fileStorageService;
 
 
     @GetMapping
@@ -42,9 +47,14 @@ public class PessoaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastrarPessoa dadosPessoa, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastrarPessoa dadosPessoa, UriComponentsBuilder uriComponentsBuilder) throws IOException {
         var pessoa = new Pessoa(dadosPessoa);
         pessoaRepository.save(pessoa);
+
+        if(dadosPessoa.foto()!=null){
+            String filePath = fileStorageService.storeFoto(dadosPessoa.foto());
+        }
+
         var usuario = usuarioRepository.findByEmail(dadosPessoa.email());
         if(usuario!=null){
             usuario.setPessoa(pessoa);
