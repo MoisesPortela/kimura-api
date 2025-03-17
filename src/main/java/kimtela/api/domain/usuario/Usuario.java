@@ -38,10 +38,12 @@ public class Usuario implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "empresa_id", unique = true, nullable = true)
+    @Setter
     private Empresa empresa;
 
     @OneToOne
     @JoinColumn(name = "adm_id", unique = true, nullable = true)
+    @Setter
     private Adm adm;
 
     public Usuario(@Valid DadosCriarUser dadosCriarUser) {
@@ -49,9 +51,6 @@ public class Usuario implements UserDetails {
         this.senha = dadosCriarUser.senha();
         this.tipoPerfil = dadosCriarUser.tipoPerfil();
         this.ativo=true;
-        this.pessoa= dadosCriarUser.pessoa();
-        this.adm= dadosCriarUser.adm();
-        this.empresa= dadosCriarUser.empresa();
     }
 
     public Usuario(@NotBlank @Email String email, String senhaCodificada, @NotBlank String telefone, @NotNull TipoPerfil tipoPerfil ) {
@@ -86,6 +85,15 @@ public class Usuario implements UserDetails {
         }
         if (dadosAtualizarUser.tipoPerfil()!=null){
             this.tipoPerfil= dadosAtualizarUser.tipoPerfil();
+        }
+        if (dadosAtualizarUser.pessoa() != null) {
+            this.pessoa = dadosAtualizarUser.pessoa();
+        }
+        if (dadosAtualizarUser.empresa() != null) {
+            this.empresa = dadosAtualizarUser.empresa();
+        }
+        if (dadosAtualizarUser.adm() != null) {
+            this.adm = dadosAtualizarUser.adm();
         }
 
     }

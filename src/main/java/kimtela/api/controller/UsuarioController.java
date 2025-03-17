@@ -2,6 +2,9 @@ package kimtela.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import kimtela.api.domain.adm.Adm;
+import kimtela.api.domain.empresa.Empresa;
+import kimtela.api.domain.pessoa.Pessoa;
 import kimtela.api.domain.usuario.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.ReadOnlyProperty;
@@ -32,6 +35,32 @@ public class UsuarioController {
         return ResponseEntity.ok(new DadosDetalhadosUser(usuario).censurarDados() );
     }
 
+    @PutMapping("/{id}/empresa")
+    @Transactional
+    public ResponseEntity atualizarUsuarioComEmpresa(@PathVariable Long id, @RequestBody @Valid Empresa empresa){
+        var usuario = usuarioRepository.getReferenceById(id);
+        usuario.setEmpresa(empresa);
+        usuarioRepository.save(usuario);
+        return ResponseEntity.ok(new DadosDetalhadosUser(usuario).censurarDados());
+    }
+
+    @PutMapping("/{id}/administrador")
+    @Transactional
+    public ResponseEntity atualizarUsuarioComAdministrador(@PathVariable Long id, @RequestBody @Valid Adm adm){
+        var usuario = usuarioRepository.getReferenceById(id);
+        usuario.setAdm(adm);
+        usuarioRepository.save(usuario);
+        return ResponseEntity.ok(new DadosDetalhadosUser(usuario).censurarDados());
+    }
+
+    @PutMapping("/{id}/pessoa")
+    @Transactional
+    public ResponseEntity atualizarUsuarioComPessoa(@PathVariable Long id, @RequestBody @Valid Pessoa pessoa){
+        var usuario = usuarioRepository.getReferenceById(id);
+        usuario.setPessoa(pessoa);
+        usuarioRepository.save(usuario);
+        return ResponseEntity.ok(new DadosDetalhadosUser(usuario).censurarDados());
+    }
 
     @GetMapping
     @ReadOnlyProperty

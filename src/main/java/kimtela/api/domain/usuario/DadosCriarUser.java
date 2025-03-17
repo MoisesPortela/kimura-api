@@ -16,10 +16,7 @@ public record DadosCriarUser(
         @NotBlank
         String telefone,
         @NotNull
-        TipoPerfil tipoPerfil,
-        Pessoa pessoa,
-        Adm adm,
-        Empresa empresa
+        TipoPerfil tipoPerfil
 ) {
 
 }
